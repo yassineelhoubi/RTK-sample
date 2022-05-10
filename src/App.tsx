@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { User } from './components';
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
     //   </header>
     // </div>
     <div>
-      <h1>yassine</h1>
+      <User />
     </div>
   );
 }
