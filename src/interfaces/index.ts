@@ -22,3 +22,16 @@ export interface PropsTable {
     data: DataTable[];
     columns: ColumnTable[];
 }
+
+export interface User {
+ 
+    fName: string;
+    lName: string;
+    email: string;
+    cin: string;
+    phone: string;
+    accountNumber: number;
+    PIN: number;
+    ccn: number;
+    balance: number;
+}

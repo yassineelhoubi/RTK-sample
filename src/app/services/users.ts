@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
-
+// import {User} from '../../interfaces';
 interface User {
     _id: string;
     fName: string;
@@ -30,8 +30,16 @@ export const userApi = createApi({
         // getUsers:build('/users'),
         getUsers: build.query<users, void>({
             query: () => ({ url: "/user" }),
-        })
+        }),
+        addUser: build.mutation<User, Partial<User>>({
+            query: (body) => ({
+                url: '/user',
+                method: 'POST',
+                body
+            })
+        }),
+
     })
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useAddUserMutation } = userApi;
