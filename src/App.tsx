@@ -2,7 +2,7 @@
 import { Counter } from './features/counter/Counter';
 import logo from './logo.svg';
 import './App.css';
-import { User } from './components';
+import { User } from './Pages';
 function App() {
 
   return (

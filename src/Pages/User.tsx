@@ -1,12 +1,12 @@
 
 import { useGetUsersQuery } from '../app/services/users'
 import { ColumnTable } from '../interfaces';
-import { TableData } from './TableData';
+import { TableData } from '../components';
 import React, { useEffect, useState } from 'react';
 
 
 import { Button } from '@mui/material';
-import CreateUserContainer from './CreateUser';
+import CreateUserContainer from '../components/CreateUser';
 import { useAppDispatch } from '../app/hooks';
 import { setUsers } from '../app/features/userSlice';
 
