@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+
 import { Counter } from './features/counter/Counter';
+import logo from './logo.svg';
 import './App.css';
 import { User } from './components';
-import { Button } from '@mui/material';
-import CreateUserContainer from './components/CreateUser';
-
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => {
-    setShowModal(false);
-  }
-  const refetch = () => {
-  
-    console.log("refetch")
-  };
+
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -64,10 +54,6 @@ function App() {
     //   </header>
     // </div>
     <div>
-      <Button onClick={() => setShowModal(true)} variant="contained" color="primary">
-        New User
-      </Button>
-      <CreateUserContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} />
       <User />
     </div>
   );

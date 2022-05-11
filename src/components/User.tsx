@@ -1,15 +1,36 @@
-import React, { useEffect } from 'react'
+
 import { useGetUsersQuery } from '../app/services/users'
 import { ColumnTable } from '../interfaces';
 import { TableData } from './TableData';
+import React, { useEffect, useState } from 'react';
+
+
+import { Button } from '@mui/material';
+import CreateUserContainer from './CreateUser';
+import { useAppDispatch } from '../app/hooks';
+import { setUsers } from '../app/features/userSlice';
 
 
 function User() {
 
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+      setShowModal(false);
+    }
+    const refetch = () => {
+      console.log("refetch")
+    };
     const { data, isLoading, error } = useGetUsersQuery();
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        console.log(data);
-    }, [data]);
+        if (error) {
+            console.log(error)
+        }
+        if(data){
+            dispatch(setUsers(data))
+            console.log(data)
+        }
+    }, [error, data])
 
     const columns: ColumnTable[] = [
         { id: 'fName', label: 'First Name' },
@@ -21,9 +42,12 @@ function User() {
 
     return (
         <div>
+            <Button onClick={() => setShowModal(true)} variant="contained" color="primary">
+        New User
+      </Button>
             <h1>users</h1>
 
-
+      <CreateUserContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} />
             {data && <TableData data={data} columns={columns} />}
 
         </div>
