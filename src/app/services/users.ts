@@ -1,6 +1,4 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store';
-// import {User} from '../../interfaces';
+import { api } from '../api';
 interface User {
     _id: string;
     fName: string;
@@ -16,29 +14,21 @@ interface User {
 
 type users = User[];
 
+const apiWithTags = api.enhanceEndpoints({ addTagTypes: ['Users'] });
 
-const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3030',
+export const userApi = apiWithTags.injectEndpoints({
 
-}) as any;
-
-export const userApi = createApi({
-    reducerPath: 'userAPI',
-    baseQuery,
-    tagTypes: ['Users'],
-    endpoints: (build) => ({
-        // getUsers:build('/users'),
-        getUsers: build.query<users, void>({
+    endpoints: (builder) => ({
+        getUsers: builder.query<users, void>({
             query: () => ({ url: "/user" }),
         }),
-        addUser: build.mutation<User, Partial<User>>({
+        addUser: builder.mutation<User, Partial<User>>({
             query: (body) => ({
                 url: '/user',
                 method: 'POST',
                 body
             })
         }),
-
     })
 });
 
