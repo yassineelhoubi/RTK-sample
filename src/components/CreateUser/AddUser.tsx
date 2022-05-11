@@ -5,7 +5,7 @@ import React from 'react'
 import TextField from '@mui/material/TextField';
 // import { IFonction } from 'app/models/IFonction';
 import { User } from '../../interfaces';
-import AppTextField from '../AppForm/AppTextField';
+import AppTextField from '../../core/AppForm/AppTextField';
 
 
 
