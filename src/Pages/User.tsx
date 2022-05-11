@@ -15,10 +15,10 @@ function User() {
 
     const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => {
-      setShowModal(false);
+        setShowModal(false);
     }
     const refetch = () => {
-      console.log("refetch")
+        console.log("refetch")
     };
     const { data, isLoading, error } = useGetUsersQuery();
     const dispatch = useAppDispatch();
@@ -26,8 +26,8 @@ function User() {
         if (error) {
             console.log(error)
         }
-        if(data){
-            dispatch(setUsers(data))
+        if (data) {
+            // dispatch(setUsers(data))
             console.log(data)
         }
     }, [error, data])
@@ -39,15 +39,14 @@ function User() {
         { id: 'balance', label: 'Balance' }
     ]
 
-
     return (
         <div>
             <Button onClick={() => setShowModal(true)} variant="contained" color="primary">
-        New User
-      </Button>
+                New User
+            </Button>
             <h1>users</h1>
 
-      <CreateUserContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} />
+            <CreateUserContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} />
             {data && <TableData data={data} columns={columns} />}
 
         </div>
