@@ -15,6 +15,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { DataTable, PropsTable } from '../interfaces';
 import { Box } from '@mui/material';
+import { useGetUserByIdQuery } from '../app/services/users';
+import UpdateUserForm from './UpdateUser/UpdateUserForm';
 
 
 
@@ -34,14 +36,36 @@ const TableData: React.FC<PropsTable> = ({ data, columns }) => {
     setPage(0);
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useState('');
+  const handleClose = () => {
+    setShowModal(false)
+  }
 
   const openDeleteModal = (id: string) => {
     console.log(id);
 
   }
 
-  const handelAlertUpdateDialog = (data: DataTable) => {
-    console.log(data);
+  const handelAlertUpdateDialog = (id: string) => {
+    console.log(id);
+    setUserId(id)
+    setShowModal(true)
+    // setShowModal(true);
+    // const { data, isLoading, error } = useGetUserByIdQuery(id);
+    // setInitialUserData({ 
+    //   id: data._id,
+    //   fName: data.fName,
+    //   lName: data.lName,
+    //   cin: data.cin,
+    //   balance: data.balance,
+    //   email: data.email,
+    //   phone: data.phone,
+    //   accountNumber: data.accountNumber,
+    //   PIN: data.PIN,
+    //   ccn: data.ccn,
+    // });
+
 
   }
 
@@ -75,7 +99,7 @@ const TableData: React.FC<PropsTable> = ({ data, columns }) => {
                               <Button onClick={() => openDeleteModal(row._id)} variant="outlined" >
                                 <DeleteIcon />
                               </Button>
-                              <Button onClick={() => handelAlertUpdateDialog(row)} variant="outlined" >
+                              <Button onClick={() => handelAlertUpdateDialog(row._id)} variant="outlined" >
                                 <EditIcon />
                               </Button>
                             </Box> : value}
@@ -98,6 +122,7 @@ const TableData: React.FC<PropsTable> = ({ data, columns }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper >
+     <UpdateUserForm showModal={showModal} handleClose={handleClose} id={userId} /> 
   </>
   );
 };

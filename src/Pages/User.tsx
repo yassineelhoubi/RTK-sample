@@ -6,14 +6,31 @@ import React, { useEffect, useState } from 'react';
 
 
 import { Button } from '@mui/material';
-import CreateUserContainer from '../components/CreateUser';
+import UserFormContainer from '../components/CreateUser/UserFormContainer';
 import { useAppDispatch } from '../app/hooks';
 import { setUsers } from '../app/features/userSlice';
+
 
 
 function User() {
 
     const [showModal, setShowModal] = useState(false);
+    const [showAlertDialog, setShowAlert] = useState(false);
+    const [initialUserData, setInitialUserData] = useState<any>({
+        id: '',
+        fName: '',
+        lName: '',
+        cin: '',
+        balance: 0,
+        email: '',
+        phone: '',
+        accountNumber: 0,
+        PIN: 0,
+        ccn: 0,
+    });
+    const handleCloseAlertDialog = () => {
+        setShowAlert(false);
+    }
     const handleCloseModal = () => {
         setShowModal(false);
     }
@@ -36,7 +53,8 @@ function User() {
         { id: 'fName', label: 'First Name' },
         { id: 'lName', label: 'Last Name' },
         { id: 'cin', label: 'CIN' },
-        { id: 'balance', label: 'Balance' }
+        { id: 'balance', label: 'Balance' },
+        { id: 'actions', label: 'Actions' },
     ]
 
     return (
@@ -46,7 +64,7 @@ function User() {
             </Button>
             <h1>users</h1>
 
-            <CreateUserContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} />
+            <UserFormContainer showModal={showModal} handleCloseModal={handleCloseModal} refetch={refetch} initialUserData={initialUserData} />
             {data && <TableData data={data} columns={columns} />}
 
         </div>

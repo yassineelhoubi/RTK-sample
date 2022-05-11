@@ -13,7 +13,7 @@ interface Props {
   values: User,
   setFieldValue: (field: string, value: any) => void
 }
-const AddUser: React.FC<Props> = ({ values, setFieldValue }) => {
+const UserForm: React.FC<Props> = ({ values, setFieldValue }) => {
 
   return (
     <Form noValidate autoComplete='off'>
@@ -119,4 +119,4 @@ const AddUser: React.FC<Props> = ({ values, setFieldValue }) => {
   )
 }
 
-export default AddUser
+export default UserForm

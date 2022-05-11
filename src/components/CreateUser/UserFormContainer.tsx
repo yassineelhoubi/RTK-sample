@@ -1,6 +1,6 @@
 import AppDialog from '../../core/AppDialog'
 import React, { useRef } from 'react'
-import AddUser from './AddUser'
+import UserForm from './UserForm'
 import { Formik, FormikProps } from 'formik';
 import * as yup from 'yup';
 import { User } from '../../interfaces';
@@ -11,6 +11,7 @@ interface Props {
     showModal: boolean
     handleCloseModal: () => void;
     refetch: () => void;
+    initialUserData: User;
 }
 const validationSchema = yup.object().shape({
     fName: yup.string().required('Required'),
@@ -25,7 +26,7 @@ const validationSchema = yup.object().shape({
 
 });
 
-const CreateUserContainer: React.FC<Props> = ({ showModal, handleCloseModal, refetch }) => {
+const UserFormContainer: React.FC<Props> = ({ showModal, handleCloseModal, refetch, initialUserData }) => {
 
     const [addUser, { isError, isLoading }] = useAddUserMutation();
     const formRef = useRef<FormikProps<User>>(null);
@@ -61,17 +62,7 @@ const CreateUserContainer: React.FC<Props> = ({ showModal, handleCloseModal, ref
 
                 <Formik
                     innerRef={formRef}
-                    initialValues={{
-                        fName: '',
-                        lName: '',
-                        email: '',
-                        cin: '',
-                        phone: '',
-                        accountNumber: 0,
-                        PIN: 0,
-                        ccn: 0,
-                        balance: 0,
-                    }}
+                    initialValues={initialUserData}
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
                         console.log(values)
@@ -88,7 +79,7 @@ const CreateUserContainer: React.FC<Props> = ({ showModal, handleCloseModal, ref
                     }}
                 >
                     {({ values, setFieldValue }) => (
-                        <AddUser
+                        <UserForm
                             values={values as User}
                             setFieldValue={setFieldValue}
                         />
@@ -99,4 +90,4 @@ const CreateUserContainer: React.FC<Props> = ({ showModal, handleCloseModal, ref
     )
 }
 
-export default CreateUserContainer
+export default UserFormContainer

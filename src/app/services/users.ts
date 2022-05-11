@@ -21,6 +21,7 @@ export const userApi = apiWithTags.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query<users, void>({
             query: () => ({ url: "/user" }),
+            providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
         addUser: builder.mutation<User, Partial<User>>({
             query: (body) => ({
@@ -29,7 +30,14 @@ export const userApi = apiWithTags.injectEndpoints({
                 body
             })
         }),
+        getUserById: builder.query<User, string>({
+            query: (id) => ({
+                url: `/user/${id}`,
+            }),
+            providesTags: (result, error, id) => [{ type: 'Users', id }]
+        }),
+
     })
 });
 
-export const { useGetUsersQuery, useAddUserMutation } = userApi;
+export const { useGetUsersQuery, useAddUserMutation, useGetUserByIdQuery } = userApi;
