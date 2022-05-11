@@ -45,7 +45,7 @@ function User() {
         }
         if (data) {
             // dispatch(setUsers(data))
-            console.log(data)
+            // console.log(data)
         }
     }, [error, data])
 

@@ -24,14 +24,13 @@ export interface PropsTable {
 }
 
 export interface User {
- 
     fName: string;
     lName: string;
     email: string;
     cin: string;
     phone: string;
-    accountNumber: number;
+    accountNumber?: number;
     PIN: number;
     ccn: number;
-    balance: number;
+    balance?: number;
 }

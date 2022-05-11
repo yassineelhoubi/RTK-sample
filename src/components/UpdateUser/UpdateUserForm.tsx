@@ -4,7 +4,7 @@ import UserForm from './UserForm'
 import { Formik, FormikProps } from 'formik';
 import * as yup from 'yup';
 import { User } from '../../interfaces';
-import { useAddUserMutation, useGetUserByIdQuery } from '../../app/services/users';
+import { useGetUserByIdQuery, useUpdateUserMutation } from '../../app/services/users';
 
 
 interface Props {
@@ -20,16 +20,15 @@ const validationSchema = yup.object().shape({
     email: yup.string().required('Required'),
     cin: yup.string().required('Required'),
     phone: yup.string().required('Required'),
-    accountNumber: yup.number().required('Required'),
     PIN: yup.number().required('Required'),
     ccn: yup.number().required('Required'),
-    balance: yup.number().required('Required'),
 });
 
 const UpdateUserForm: React.FC<Props> = ({ showModal, handleClose, id }) => {
     const { data } = useGetUserByIdQuery(id);
 
-    const [addUser, { isError, isLoading }] = useAddUserMutation();
+
+    const [updateUser, { isError, isLoading }] = useUpdateUserMutation();
     const formRef = useRef<FormikProps<User>>(null);
 
     const handleSubmit = () => {
@@ -64,21 +63,35 @@ const UpdateUserForm: React.FC<Props> = ({ showModal, handleClose, id }) => {
                 <Formik
                     innerRef={formRef}
                     initialValues={
-                        data ? data : {
-                            fName: '',
-                            lName: '',
-                            email: '',
-                            cin: '',
-                            phone: '',
-                            accountNumber: 0,
-                            PIN: 0,
-                            ccn: 0,
-                            balance: 0,
+                        {
+                            fName: data ? data.fName : "",
+                            lName: data ? data.lName : "",
+                            email: data ? data.email : "",
+                            cin: data ? data.cin : "",
+                            phone: data ? data.phone : "",
+                            PIN: data ? data.PIN : 0,
+                            ccn: data ? data.ccn : 0,
 
-                    }}
+                        }}
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
                         console.log(values)
+                        // values._id = data ? data._id : ''
+                        console.log(values)
+                        let Values = {
+                            ...values,
+                            _id: data ? data._id : ''
+                        }
+                        updateUser(Values)
+                            .then(() => {
+                                console.log('success')
+                                handleClose()
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            }
+                            )
+
 
 
                     }}

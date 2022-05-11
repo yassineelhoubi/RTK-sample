@@ -14,6 +14,7 @@ interface Props {
   setFieldValue: (field: string, value: any) => void
 }
 const UserForm: React.FC<Props> = ({ values, setFieldValue }) => {
+  // console.log( values);
 
   return (
     <Form noValidate autoComplete='off'>
@@ -70,25 +71,6 @@ const UserForm: React.FC<Props> = ({ values, setFieldValue }) => {
               variant='outlined'
               label="Phone"
               name='phone'
-            />
-            <AppTextField
-              sx={{
-                width: '100%',
-                mb: { xs: 4, xl: 6 },
-              }}
-              variant='outlined'
-              label="Balance"
-              name='balance'
-            />
-            <AppTextField
-
-              sx={{
-                width: '100%',
-                mb: { xs: 4, xl: 6 },
-              }}
-              variant='outlined'
-              label="Account Number"
-              name='accountNumber'
             />
             <AppTextField
               sx={{
